@@ -1,0 +1,196 @@
+CHAPTER 1
+INTRODUCTION
+In which we try to explain why we consider artificial intelligence to be a subject most
+worthy of study, and in which we try to decide what exactly it is, this being a good thing to
+decide before embarking.
+We call ourselves Homo sapiens—man the wise—because our intelligence is so important Intelligence
+to us. For thousands of years, we have tried to understand how we think and act—that is,
+how our brain, a mere handful of matter, can perceive, understand, predict, and manipulate a
+world far larger and more complicated than itself. The field of artificial intelligence, or AI, Artificial intelligence
+is concerned with not just understanding but also building intelligent entities—machines that
+can compute how to act effectively and safely in a wide variety of novel situations.
+Surveys regularly rank AI as one of the most interesting and fastest-growing fields, and it
+is already generating over a trillion dollars a year in revenue. AI expert Kai-Fu Lee predicts
+that its impact will be “more than anything in the history of mankind.” Moreover, the intellectual frontiers of AI are wide open. Whereas a student of an older science such as physics
+might feel that the best ideas have already been discovered by Galileo, Newton, Curie, Einstein, and the rest, AI still has many openings for full-time masterminds.
+AI currently encompasses a huge variety of subfields, ranging from the general (learning,
+reasoning, perception, and so on) to the specific, such as playing chess, proving mathematical theorems, writing poetry, driving a car, or diagnosing diseases. AI is relevant to any
+intellectual task; it is truly a universal field.
+1.1 What Is AI?
+We have claimed that AI is interesting, but we have not said what it is. Historically, researchers have pursued several different versions of AI. Some have defined intelligence in
+terms of fidelity to human performance, while others prefer an abstract, formal definition of
+intelligence called rationality—loosely speaking, doing the “right thing.” The subject matter Rationality
+itself also varies: some consider intelligence to be a property of internal thought processes
+and reasoning, while others focus on intelligent behavior, an external characterization.1
+From these two dimensions—human vs. rational2
+and thought vs. behavior—there are
+four possible combinations, and there have been adherents and research programs for all
+1 In the public eye, there is sometimes confusion between the terms “artificial intelligence” and “machine learning.” Machine learning is a subfield of AI that studies the ability to improve performance based on experience.
+Some AI systems use machine learning methods to achieve competence, but some do not.
+2 We are not suggesting that humans are “irrational” in the dictionary sense of “deprived of normal mental
+clarity.” We are merely conceding that human decisions are not always mathematically perfect.
+2 Chapter 1 Introduction
+four. The methods used are necessarily different: the pursuit of human-like intelligence must
+be in part an empirical science related to psychology, involving observations and hypotheses
+about actual human behavior and thought processes; a rationalist approach, on the other hand,
+involves a combination of mathematics and engineering, and connects to statistics, control
+theory, and economics. The various groups have both disparaged and helped each other. Let
+us look at the four approaches in more detail.
+1.1.1 Acting humanly: The Turing test approach
+Turing test The Turing test, proposed by Alan Turing (1950), was designed as a thought experiment that
+would sidestep the philosophical vagueness of the question “Can a machine think?” A computer passes the test if a human interrogator, after posing some written questions, cannot tell
+whether the written responses come from a person or from a computer. Chapter 27 discusses
+the details of the test and whether a computer would really be intelligent if it passed. For
+now, we note that programming a computer to pass a rigorously applied test provides plenty
+to work on. The computer would need the following capabilities:
+• natural language processing to communicate successfully in a human language; Natural language
+processing
+Knowledge • knowledge representation to store what it knows or hears; representation
+Automated • automated reasoning to answer questions and to draw new conclusions;
+reasoning
+• machine learning to adapt to new circumstances and to detect and extrapolate patterns. Machine learning
+Turing viewed the physical simulation of a person as unnecessary to demonstrate intelligence.
+Total Turing test However, other researchers have proposed a total Turing test, which requires interaction with
+objects and people in the real world. To pass the total Turing test, a robot will need
+Computer vision • computer vision and speech recognition to perceive the world;
+Robotics • robotics to manipulate objects and move about.
+These six disciplines compose most of AI. Yet AI researchers have devoted little effort to
+passing the Turing test, believing that it is more important to study the underlying principles of intelligence. The quest for “artificial flight” succeeded when engineers and inventors
+stopped imitating birds and started using wind tunnels and learning about aerodynamics.
+Aeronautical engineering texts do not define the goal of their field as making “machines that
+fly so exactly like pigeons that they can fool even other pigeons.”
+1.1.2 Thinking humanly: The cognitive modeling approach
+To say that a program thinks like a human, we must know how humans think. We can learn
+about human thought in three ways:
+Introspection • introspection—trying to catch our own thoughts as they go by;
+• psychological experiments—observing a person in action; Psychological
+experiment
+Brain imaging • brain imaging—observing the brain in action.
+Once we have a sufficiently precise theory of the mind, it becomes possible to express the
+theory as a computer program. If the program’s input–output behavior matches corresponding human behavior, that is evidence that some of the program’s mechanisms could also be
+operating in humans.
+For example, Allen Newell and Herbert Simon, who developed GPS, the “General Problem Solver” (Newell and Simon, 1961), were not content merely to have their program solve
+Section 1.1 What Is AI? 3
+problems correctly. They were more concerned with comparing the sequence and timing of
+its reasoning steps to those of human subjects solving the same problems. The interdisciplinary field of cognitive science brings together computer models from AI and experimental Cognitive science
+techniques from psychology to construct precise and testable theories of the human mind.
+Cognitive science is a fascinating field in itself, worthy of several textbooks and at least
+one encyclopedia (Wilson and Keil, 1999). We will occasionally comment on similarities or
+differences between AI techniques and human cognition. Real cognitive science, however, is
+necessarily based on experimental investigation of actual humans or animals. We will leave
+that for other books, as we assume the reader has only a computer for experimentation.
+In the early days of AI there was often confusion between the approaches. An author
+would argue that an algorithm performs well on a task and that it is therefore a good model
+of human performance, or vice versa. Modern authors separate the two kinds of claims; this
+distinction has allowed both AI and cognitive science to develop more rapidly. The two fields
+fertilize each other, most notably in computer vision, which incorporates neurophysiological
+evidence into computational models. Recently, the combination of neuroimaging methods
+combined with machine learning techniques for analyzing such data has led to the beginnings
+of a capability to “read minds”—that is, to ascertain the semantic content of a person’s inner
+thoughts. This capability could, in turn, shed further light on how human cognition works.
+1.1.3 Thinking rationally: The “laws of thought” approach
+The Greek philosopher Aristotle was one of the first to attempt to codify “right thinking”—
+that is, irrefutable reasoning processes. His syllogisms provided patterns for argument struc- Syllogism
+tures that always yielded correct conclusions when given correct premises. The canonical
+example starts with Socrates is a man and all men are mortal and concludes that Socrates is
+mortal. (This example is probably due to Sextus Empiricus rather than Aristotle.) These laws
+of thought were supposed to govern the operation of the mind; their study initiated the field
+called logic.
+Logicians in the 19th century developed a precise notation for statements about objects
+in the world and the relations among them. (Contrast this with ordinary arithmetic notation,
+which provides only for statements about numbers.) By 1965, programs could, in principle,
+solve any solvable problem described in logical notation. The so-called logicist tradition Logicist
+within artificial intelligence hopes to build on such programs to create intelligent systems.
+Logic as conventionally understood requires knowledge of the world that is certain—
+a condition that, in reality, is seldom achieved. We simply don’t know the rules of, say,
+politics or warfare in the same way that we know the rules of chess or arithmetic. The theory
+of probability fills this gap, allowing rigorous reasoning with uncertain information. In Probability
+principle, it allows the construction of a comprehensive model of rational thought, leading
+from raw perceptual information to an understanding of how the world works to predictions
+about the future. What it does not do, is generate intelligent behavior. For that, we need a
+theory of rational action. Rational thought, by itself, is not enough.
+1.1.4 Acting rationally: The rational agent approach
+An agent is just something that acts (agent comes from the Latin agere, to do). Of course, Agent
+all computer programs do something, but computer agents are expected to do more: operate
+autonomously, perceive their environment, persist over a prolonged time period, adapt to
+4 Chapter 1 Introduction
+Rational agent change, and create and pursue goals. A rational agent is one that acts so as to achieve the
+best outcome or, when there is uncertainty, the best expected outcome.
+In the “laws of thought” approach to AI, the emphasis was on correct inferences. Making correct inferences is sometimes part of being a rational agent, because one way to act
+rationally is to deduce that a given action is best and then to act on that conclusion. On the
+other hand, there are ways of acting rationally that cannot be said to involve inference. For
+example, recoiling from a hot stove is a reflex action that is usually more successful than a
+slower action taken after careful deliberation.
+All the skills needed for the Turing test also allow an agent to act rationally. Knowledge
+representation and reasoning enable agents to reach good decisions. We need to be able to
+generate comprehensible sentences in natural language to get by in a complex society. We
+need learning not only for erudition, but also because it improves our ability to generate
+effective behavior, especially in circumstances that are new.
+The rational-agent approach to AI has two advantages over the other approaches. First, it
+is more general than the “laws of thought” approach because correct inference is just one of
+several possible mechanisms for achieving rationality. Second, it is more amenable to scientific development. The standard of rationality is mathematically well defined and completely
+general. We can often work back from this specification to derive agent designs that provably
+achieve it—something that is largely impossible if the goal is to imitate human behavior or
+thought processes.
+For these reasons, the rational-agent approach to AI has prevailed throughout most of
+the field’s history. In the early decades, rational agents were built on logical foundations
+and formed definite plans to achieve specific goals. Later, methods based on probability
+theory and machine learning allowed the creation of agents that could make decisions under
+◮ uncertainty to attain the best expected outcome. In a nutshell, AI has focused on the study
+Do the right thing and construction of agents that do the right thing. What counts as the right thing is defined
+by the objective that we provide to the agent. This general paradigm is so pervasive that we
+Standard model might call it the standard model. It prevails not only in AI, but also in control theory, where a
+controller minimizes a cost function; in operations research, where a policy maximizes a sum
+of rewards; in statistics, where a decision rule minimizes a loss function; and in economics,
+where a decision maker maximizes utility or some measure of social welfare.
+We need to make one important refinement to the standard model to account for the fact
+that perfect rationality—always taking the exactly optimal action—is not feasible in complex
+environments. The computational demands are just too high. Chapters 5 and 17 deal with the
+Limited rationality issue of limited rationality—acting appropriately when there is not enough time to do all
+the computations one might like. However, perfect rationality often remains a good starting
+point for theoretical analysis.
+1.1.5 Beneficial machines
+The standard model has been a useful guide for AI research since its inception, but it is
+probably not the right model in the long run. The reason is that the standard model assumes
+that we will supply a fully specified objective to the machine.
+For an artificially defined task such as chess or shortest-path computation, the task comes
+with an objective built in—so the standard model is applicable. As we move into the real
+world, however, it becomes more and more difficult to specify the objective completely and
+Section 1.2 The Foundations of Artificial Intelligence 5
+correctly. For example, in designing a self-driving car, one might think that the objective is
+to reach the destination safely. But driving along any road incurs a risk of injury due to other
+errant drivers, equipment failure, and so on; thus, a strict goal of safety requires staying in the
+garage. There is a tradeoff between making progress towards the destination and incurring a
+risk of injury. How should this tradeoff be made? Furthermore, to what extent can we allow
+the car to take actions that would annoy other drivers? How much should the car moderate
+its acceleration, steering, and braking to avoid shaking up the passenger? These kinds of
+questions are difficult to answer a priori. They are particularly problematic in the general
+area of human–robot interaction, of which the self-driving car is one example.
+The problem of achieving agreement between our true preferences and the objective we
+put into the machine is called the value alignment problem: the values or objectives put into Value alignment
+problem
+the machine must be aligned with those of the human. If we are developing an AI system in
+the lab or in a simulator—as has been the case for most of the field’s history—there is an easy
+fix for an incorrectly specified objective: reset the system, fix the objective, and try again.
+As the field progresses towards increasingly capable intelligent systems that are deployed
+in the real world, this approach is no longer viable. A system deployed with an incorrect
+objective will have negative consequences. Moreover, the more intelligent the system, the
+more negative the consequences.
+Returning to the apparently unproblematic example of chess, consider what happens if
+the machine is intelligent enough to reason and act beyond the confines of the chessboard.
+In that case, it might attempt to increase its chances of winning by such ruses as hypnotizing or blackmailing its opponent or bribing the audience to make rustling noises during its
+opponent’s thinking time.3
+It might also attempt to hijack additional computing power for
+itself.
+of defining winning as the
+These behaviors are not “unintelligent” or “insane”; they are a logical consequence
+sole objective for the machine.
+It is impossible to anticipate all the ways in which a machine pursuing a fixed objective
+might misbehave. There is good reason, then, to think that the standard model is inadequate.
+We don’t want machines that are intelligent in the sense of pursuing their objectives; we want
+them to pursue our objectives. If we cannot transfer those objectives perfectly to the machine,
+then we need a new formulation—one in which the machine is pursuing our objectives, but
+is necessarily uncertain as to what they are. When a machine knows that it doesn’t know the
+complete objective, it has an incentive to act cautiously, to ask permission, to learn more about
+our preferences through observation, and to defer to human control. Ultimately, we want
+agents that are provably beneficial to humans. We will return to this topic in Section 1.5. 
