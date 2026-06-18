@@ -4,12 +4,16 @@ import uvicorn
 from loggers import logger
 from api.heartbeat_api import router as heartbeat_router
 from api.doc_extractor import router as upload_doc_router
+from api.chunk_index import router as chunk_indexer_router
+from api.chunk_retrieve import router as retriever_router
 
 app = FastAPI()
 
 
-app.include_router(heartbeat_router)
+app.include_router(heartbeat_router, tags=["health"])
 app.include_router(upload_doc_router)
+app.include_router(chunk_indexer_router)
+app.include_router(retriever_router)
 
 
 @app.on_event("startup")
