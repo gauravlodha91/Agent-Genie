@@ -26,24 +26,16 @@ collection = client.get_or_create_collection(name=COLLECTION_NAME)
 #     return 1 if n == 1 else (n + recur(n - 1))
 
 
-def store_chunks(chunks):
-
-    docs = []
-    ids = []
-    metadatas = []
+def store_chunks(
+    ids: list[str],
+    documents: list[str],
+    embeddings: list[list[float]],
+    metadatas: list[dict[str, str]],
+) -> dict[str, str]:
 
     try:
-        for chunk in chunks:
-            docs.append(chunk["content"])
-
-            ids.append(f"{chunk['file_hash']}_{chunk['chunk_id']}")
-
-            metadatas.append(chunk["metadata"])
-
-        embeddings = embed_documents(docs)
-
         collection.add(
-            ids=ids, documents=docs, embeddings=embeddings, metadatas=metadatas
+            ids=ids, documents=documents, embeddings=embeddings, metadatas=metadatas
         )
 
         return {"collection_name": collection.name, "count": collection.count()}
