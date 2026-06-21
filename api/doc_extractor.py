@@ -1,19 +1,19 @@
-from fastapi import APIRouter, UploadFile, File
-from fastapi.responses import JSONResponse
-from datetime import datetime
-from typing import Any, Dict, List
-from pathlib import Path
 import hashlib
 import json
+from datetime import datetime
+from pathlib import Path
+from typing import Any
 
-from loggers import logger
-
+from fastapi import APIRouter, File, UploadFile
+from fastapi.responses import JSONResponse
 from langchain_community.document_loaders import (
     PyPDFLoader,
     TextLoader,
     UnstructuredWordDocumentLoader,
 )
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+
+from loggers import logger
 
 router = APIRouter()
 
@@ -28,7 +28,7 @@ DEFAULT_CHUNK_SIZE = 2048
 DEFAULT_CHUNK_OVERLAP = 64
 
 
-def ensure_folders():
+def ensure_folders() -> None:
     """Create necessary folders if they don't exist"""
     try:
         Path(DATA_FOLDER).mkdir(parents=True, exist_ok=True)
@@ -41,8 +41,13 @@ def ensure_folders():
 
 def get_file_hash(filename: str) -> str:
     """Generate hash for filename"""
+    # if filename is None:
+    #     raise ValueError("Filename is not mentioned")
     hash_input = f"{GLOBAL_HASH_KEY}_{filename}"
-    return hashlib.md5(hash_input.encode()).hexdigest()
+    hash_encode = hashlib.md5(hash_input.encode()).hexdigest()
+    if hash_encode is None:
+        raise ValueError("Error in get file hash")
+    return hash_encode
 
 
 def save_uploaded_file(file: UploadFile, file_extension: str) -> str:
@@ -65,7 +70,7 @@ def save_uploaded_file(file: UploadFile, file_extension: str) -> str:
         raise
 
 
-def parse_pdf(file_path: str) -> List[Dict[str, Any]]:
+def parse_pdf(file_path: str) -> list[dict[str, Any]]:
     """Parse PDF file using PyPDFLoader"""
     try:
         logger.info(f"Parsing PDF file: {file_path}")
@@ -89,7 +94,7 @@ def parse_pdf(file_path: str) -> List[Dict[str, Any]]:
         raise
 
 
-def parse_text(file_path: str) -> List[Dict[str, Any]]:
+def parse_text(file_path: str) -> list[dict[str, Any]]:
     """Parse TXT file"""
 
     # NEW: Tries multiple encodings in order
@@ -118,7 +123,7 @@ def parse_text(file_path: str) -> List[Dict[str, Any]]:
     return parsed_docs
 
 
-def parse_markdown(file_path: str) -> List[Dict[str, Any]]:
+def parse_markdown(file_path: str) -> list[dict[str, Any]]:
     """Parse Markdown file"""
     try:
         logger.info(f"Parsing Markdown file: {file_path}")
@@ -141,7 +146,7 @@ def parse_markdown(file_path: str) -> List[Dict[str, Any]]:
         raise
 
 
-def parse_docx(file_path: str) -> List[Dict[str, Any]]:
+def parse_docx(file_path: str) -> list[dict[str, Any]]:
     """Parse DOCX file using UnstructuredWordDocumentLoader"""
     try:
         logger.info(f"Parsing DOCX file: {file_path}")
@@ -164,9 +169,7 @@ def parse_docx(file_path: str) -> List[Dict[str, Any]]:
         raise
 
 
-def parse_through_extension(
-    file_path: str, file_extension: str
-) -> List[Dict[str, Any]]:
+def parse_through_extension(file_path: str, file_extension: str) -> list[dict[str, Any]]:
     """Route file parsing based on extension"""
     try:
         logger.info(f"Routing parser for extension: {file_extension}")
@@ -189,9 +192,7 @@ def parse_through_extension(
         raise
 
 
-def create_chunks_from_content(
-    documents: List[Dict[str, Any]], chunk_size: int, chunk_overlap: int
-) -> List[Dict[str, Any]]:
+def create_chunks_from_content(documents: list[dict[str, Any]], chunk_size: int, chunk_overlap: int) -> list[dict[str, Any]]:
     """Create chunks from parsed documents using RecursiveCharacterTextSplitter"""
     try:
         logger.info(f"Creating chunks with size={chunk_size}, overlap={chunk_overlap}")
@@ -231,9 +232,7 @@ def create_chunks_from_content(
         raise
 
 
-def save_chunks_metadata(
-    filename: str, chunks: List[Dict[str, Any]], original_filename: str
-) -> Dict[str, Any]:
+def save_chunks_metadata(filename: str, chunks: list[dict[str, Any]], original_filename: str) -> dict[str, Any]:
     """Save chunks metadata to JSON file"""
     try:
         file_hash = get_file_hash(original_filename)
@@ -262,7 +261,7 @@ async def process_uploaded_file(
     file: UploadFile,
     chunk_size: int = DEFAULT_CHUNK_SIZE,
     chunk_overlap: int = DEFAULT_CHUNK_OVERLAP,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Main function to process uploaded file"""
 
     try:
@@ -271,9 +270,7 @@ async def process_uploaded_file(
 
         if file_extension not in ALLOWED_EXTENSIONS:
             logger.warning(f"Unsupported file type: {file_extension}")
-            raise ValueError(
-                f"Unsupported file type: {file_extension}. Allowed: {', '.join(ALLOWED_EXTENSIONS)}"
-            )
+            raise ValueError(f"Unsupported file type: {file_extension}. Allowed: {', '.join(ALLOWED_EXTENSIONS)}")
 
         logger.info(f"Processing file: {file.filename} (size: {file.size} bytes)")
 
@@ -326,7 +323,7 @@ async def upload_doc(
     file: UploadFile = File(...),
     chunk_size: int = DEFAULT_CHUNK_SIZE,
     chunk_overlap: int = DEFAULT_CHUNK_OVERLAP,
-):
+) -> JSONResponse:
     """
     Upload and process document
 
@@ -336,13 +333,9 @@ async def upload_doc(
     - chunk_overlap: Overlap between chunks (default: 64)
     """
     try:
-        logger.info(
-            f"Upload request received - File: {file.filename}, chunk_size={chunk_size}, overlap={chunk_overlap}"
-        )
+        logger.info(f"Upload request received - File: {file.filename}, chunk_size={chunk_size}, overlap={chunk_overlap}")
 
-        result = await process_uploaded_file(
-            file=file, chunk_size=chunk_size, chunk_overlap=chunk_overlap
-        )
+        result = await process_uploaded_file(file=file, chunk_size=chunk_size, chunk_overlap=chunk_overlap)
 
         return JSONResponse(status_code=200, content=result)
 

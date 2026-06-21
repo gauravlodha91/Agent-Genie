@@ -2,12 +2,11 @@ from fastapi import APIRouter
 
 from .services.retrieval_service import retrieve_chunks
 
-
 router = APIRouter()
 
 
 @router.post("/query")
-async def query_document(query: str, top_k: int = 5):
+async def query_document(query: str, top_k: int = 5) -> dict[str, str]:
 
     results, context = retrieve_chunks(query=query, top_k=top_k)
 

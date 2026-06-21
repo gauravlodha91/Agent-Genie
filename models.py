@@ -1,18 +1,19 @@
+from typing import Any
+
 from pydantic import BaseModel
-from typing import Dict, List, Any
 
 
 class Chunk(BaseModel):
     chunk_id: int
     content: str
-    metadata: Dict[str, Any]
+    metadata: dict[str, Any]
 
 
 class ChunkMetadata(BaseModel):
     filename: str
     file_hash: str
     total_chunks: int
-    chunks: List[Chunk]
+    chunks: list[Chunk]
 
 
 class VectorStoreRequest(BaseModel):

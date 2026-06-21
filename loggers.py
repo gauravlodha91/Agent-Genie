@@ -1,9 +1,9 @@
-import os
 import logging
+import os
 from datetime import datetime
 
 
-def setup_logging(log_level=None):
+def setup_logging(log_level: str | None = None) -> logging.Logger:
     """
     Configure application logging with customizable log level.
 
@@ -13,21 +13,17 @@ def setup_logging(log_level=None):
     Returns:
         Logger instance
     """
-    # Get log level from environment or use INFO as default
-    if not log_level:
+    if log_level is None:
         log_level = os.getenv("LOG_LEVEL", "INFO").upper()
 
     level = getattr(logging, log_level, logging.INFO)
-
     # Create log directory if it doesn't exist
     log_dir = "logs"
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
 
     # Create log filename with timestamp
-    log_filename = os.path.join(
-        log_dir, f"app_log_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
-    )
+    log_filename = os.path.join(log_dir, f"app_log_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
 
     # Configure basic logging
     logging.basicConfig(
@@ -43,9 +39,7 @@ def setup_logging(log_level=None):
     # Add console handler to see logs in terminal
     console = logging.StreamHandler()
     console.setLevel(level)
-    formatter = logging.Formatter(
-        "%(asctime)s - %(levelname)s - %(name)s - %(message)s"
-    )
+    formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(name)s - %(message)s")
     console.setFormatter(formatter)
     logger.addHandler(console)
 

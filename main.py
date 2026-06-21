@@ -1,11 +1,11 @@
-from fastapi import FastAPI
 import uvicorn
+from fastapi import FastAPI
 
-from loggers import logger
-from api.heartbeat_api import router as heartbeat_router
-from api.doc_extractor import router as upload_doc_router
 from api.chunk_index import router as chunk_indexer_router
 from api.chunk_retrieve import router as retriever_router
+from api.doc_extractor import router as upload_doc_router
+from api.heartbeat_api import router as heartbeat_router
+from loggers import logger
 
 app = FastAPI()
 
@@ -17,13 +17,13 @@ app.include_router(retriever_router)
 
 
 @app.on_event("startup")
-async def startup_event():
+async def startup_event() -> None:
     """Startup event"""
     logger.info("Application startup")
 
 
 @app.on_event("shutdown")
-async def shutdown_event():
+async def shutdown_event() -> None:
     """Shutdown event"""
     logger.info("Application shutdown")
 
